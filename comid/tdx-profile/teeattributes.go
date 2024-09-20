@@ -1,0 +1,24 @@
+// nolint:dupl
+package tdx
+
+import "fmt"
+
+type TeeAttributes maskType
+
+func NewTeeAttributes(val []byte) *TeeAttributes {
+	if val == nil {
+		return nil
+	}
+	teeAttributes := TeeAttributes(val)
+	return &teeAttributes
+}
+
+func (o TeeAttributes) Valid() error {
+	if o == nil {
+		return fmt.Errorf("nil TeeAttributes")
+	}
+	if len(o) == 0 {
+		return fmt.Errorf("zero len TeeAttributes")
+	}
+	return nil
+}
