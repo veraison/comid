@@ -75,8 +75,8 @@ var (
         "environment": {
           "class": {
             "id": {
-              "type": "uuid",
-              "value": "DD6661F0-0928-4401-966B-589EA74E3272"
+              "type": "oid",
+              "value": "2.16.840.1.113741.1.2.3.4.1"
             },
             "vendor": "Intel Corporation",
             "model": "TDX QE TCB"
@@ -85,8 +85,8 @@ var (
         "measurements": [
           {
             "value": {
-              "attributes": "AwM=",
-              "tcbevalnum": 11,
+              "miscselect": "wAAAAPv/AAA=",
+              "tcbevalnum": 11, 
               "mrsigner": [
                 "sha-256:h0KPxSKAPTEGXnvOPPA/5HUJZjHl4Hu9eg/eYMTPJcc=",
                 "sha-512:oxT8LcZjrnpra8Z4dZQFc5bms/VpzVD9XdtNG7r9K2qjFPwtxmOuemtrxnh1lAVzluaz9WnNUP1d200buv0rag=="

@@ -52,6 +52,10 @@ func Example_decode_JSON() {
 	// Digest Value: 87428fc522803d31065e7bce3cf03fe475096631e5e07bbd7a0fde60c4cf25c7
 	// Digest Alg: 8
 	// Digest Value: a314fc2dc663ae7a6b6bc6787594057396e6b3f569cd50fd5ddb4d1bbafd2b6aa314fc2dc663ae7a6b6bc6787594057396e6b3f569cd50fd5ddb4d1bbafd2b6a
+	// CryptoKey Type: pkix-base64-key
+	// CryptoKey Value: -----BEGIN PUBLIC KEY-----
+	// MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFn0taoAwR3PmrKkYLtAsD9o05KSM6mbgfNCgpuL0g6VpTHkZl73wk5BDxoV7n+Oeee0iIqkW3HMZT3ETiniJdg==
+	// -----END PUBLIC KEY-----
 }
 
 func Example_encode_tdx_seam_refval_without_profile() {
@@ -311,6 +315,15 @@ func decodeMValExtensions(m comid.Measurement) error {
 	return nil
 }
 
+func decodeAuthorisedBy(m comid.Measurement) error {
+	if err := m.AuthorizedBy.Valid(); err != nil {
+		return fmt.Errorf("invalid cryptokey: %w", err)
+	}
+	fmt.Printf("CryptoKey Type: %s\n", m.AuthorizedBy.Type())
+	fmt.Printf("CryptoKey Value: %s", m.AuthorizedBy.String())
+	return nil
+}
+
 var (
 	// test cases are based on diag files here:
 	// https://github.com/ietf-rats-wg/draft-ietf-rats-corim/tree/main/cddl/examples
@@ -355,6 +368,10 @@ func Example_decode_CBOR() {
 	// Digest Value: a314fc2dc663ae7a6b6bc6787594057396e6b3f569cd50fd5ddb4d1bbafd2b6a
 	// Digest Alg: 8
 	// Digest Value: a314fc2dc663ae7a6b6bc6787594057396e6b3f569cd50fd5ddb4d1bbafd2b6aa314fc2dc663ae7a6b6bc6787594057396e6b3f569cd50fd5ddb4d1bbafd2b6a
+	// CryptoKey Type: pkix-base64-key
+	// CryptoKey Value: -----BEGIN PUBLIC KEY-----
+	// MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEFn0taoAwR3PmrKkYLtAsD9o05KSM6mbgfNCgpuL0g6VpTHkZl73wk5BDxoV7n+Oeee0iIqkW3HMZT3ETiniJdg==
+	// -----END PUBLIC KEY-----
 }
 
 func extractRefVals(c *comid.Comid) error {
@@ -393,6 +410,13 @@ func extractSeamMeasurements(m comid.Measurements) error {
 	for i, m := range m.Values {
 		if err := decodeMValExtensions(m); err != nil {
 			return fmt.Errorf("extracting measurement at index %d: %w", i, err)
+		}
+
+		if m.AuthorizedBy != nil {
+			err := decodeAuthorisedBy(m)
+			if err != nil {
+				return fmt.Errorf("extracting measurement at index %d: %w", i, err)
+			}
 		}
 	}
 	return nil
