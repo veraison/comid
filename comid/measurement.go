@@ -441,7 +441,9 @@ func (o Mval) Valid() error {
 		o.UEID == nil &&
 		o.UUID == nil &&
 		o.IntegrityRegisters == nil &&
+
 		o.Extensions.IsEmpty() {
+		// Check for Value as well, need an API to add something
 		return fmt.Errorf("no measurement value set")
 	}
 
