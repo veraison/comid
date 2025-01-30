@@ -137,14 +137,14 @@ func decodeQEMValExtensions(m *comid.Measurement) error {
 		fmt.Printf("val was not pointer to IsvProdID")
 	}
 
-	if tS.IsBytesTeeISVProdID() {
-		val, err = tS.GetBytesTeeISVProdID()
+	if tS.IsBytes() {
+		val, err = tS.GetBytes()
 		if err != nil {
 			return fmt.Errorf("failed to decode isvprodid: %w", err)
 		}
 		fmt.Printf("\nIsvProdID: %x", val)
-	} else if tS.IsUintTeeISVProdID() {
-		val, err = tS.GetUintTeeISVProdID()
+	} else if tS.IsUint() {
+		val, err = tS.GetUint()
 		if err != nil {
 			return fmt.Errorf("failed to decode isvprodid: %w", err)
 		}

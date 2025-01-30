@@ -14,7 +14,7 @@ type TeeInstanceID struct {
 	val interface{}
 }
 
-// NewteeInstanceID creates a new InstanceID from the
+// NewTeeInstanceID creates a new InstanceID from the
 // supplied interface. The supported types are positive integers and
 // byte array
 func NewTeeInstanceID(val interface{}) *TeeInstanceID {
@@ -74,7 +74,8 @@ func (o TeeInstanceID) Valid() error {
 	return nil
 }
 
-func (o TeeInstanceID) GetUintTeeInstanceID() (uint, error) {
+// GetUint returns unsigned integer TeeInstanceID
+func (o TeeInstanceID) GetUint() (uint, error) {
 	switch t := o.val.(type) {
 	case uint64:
 		return uint(t), nil
@@ -85,7 +86,8 @@ func (o TeeInstanceID) GetUintTeeInstanceID() (uint, error) {
 	}
 }
 
-func (o TeeInstanceID) GetBytesTeeInstanceID() ([]byte, error) {
+// GetBytes returns the bytes TeeInstanceID
+func (o TeeInstanceID) GetBytes() ([]byte, error) {
 	switch t := o.val.(type) {
 	case []byte:
 		if len(t) == 0 {
@@ -96,7 +98,9 @@ func (o TeeInstanceID) GetBytesTeeInstanceID() ([]byte, error) {
 		return nil, fmt.Errorf("TeeInstanceID type is: %T", t)
 	}
 }
-func (o TeeInstanceID) IsBytesTeeInstanceID() bool {
+
+// IsBytes returns true if TeeInstanceID is of type []byte array
+func (o TeeInstanceID) IsBytes() bool {
 	switch o.val.(type) {
 	case []byte:
 		return true
@@ -105,7 +109,8 @@ func (o TeeInstanceID) IsBytesTeeInstanceID() bool {
 	}
 }
 
-func (o TeeInstanceID) IsUintTeeInstanceID() bool {
+// IsUnit returns true if TeeInstanceID is of type unsigned integer
+func (o TeeInstanceID) IsUint() bool {
 	switch o.val.(type) {
 	case uint64, uint:
 		return true
@@ -114,6 +119,7 @@ func (o TeeInstanceID) IsUintTeeInstanceID() bool {
 	}
 }
 
+// MarshalJSON Marshals TeeInstanceID to JSON
 func (o TeeInstanceID) MarshalJSON() ([]byte, error) {
 
 	if o.Valid() != nil {
@@ -143,6 +149,7 @@ func (o TeeInstanceID) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v)
 }
 
+// UnmarshalJSON UnMarshals supplied JSON bytes to TeeInstanceID
 func (o *TeeInstanceID) UnmarshalJSON(data []byte) error {
 	var v encoding.TypeAndValue
 
@@ -168,10 +175,13 @@ func (o *TeeInstanceID) UnmarshalJSON(data []byte) error {
 	}
 	return nil
 }
+
+// MarshalCBOR Marshals TeeInstanceID to CBOR
 func (o TeeInstanceID) MarshalCBOR() ([]byte, error) {
 	return cbor.Marshal(o.val)
 }
 
+// UnmarshalCBOR UnMarshals supplied CBOR bytes to TeeInstanceID
 func (o *TeeInstanceID) UnmarshalCBOR(data []byte) error {
 	return cbor.Unmarshal(data, &o.val)
 }

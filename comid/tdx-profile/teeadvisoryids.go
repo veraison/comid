@@ -28,12 +28,12 @@ func NewTeeAvisoryIDs(val []any) *TeeAdvisoryIDs {
 
 // AddTeeAdvisoryIDs add supplied AvisoryIDs to existing AdvisoryIDs
 func (o *TeeAdvisoryIDs) AddTeeAdvisoryIDs(val []any) error {
-	for _, v := range val {
+	for i, v := range val {
 		switch t := v.(type) {
 		case string:
 			*o = append(*o, t)
 		default:
-			return fmt.Errorf("invalid type: %T for AdvisoryIDs", t)
+			return fmt.Errorf("invalid type: %T for AdvisoryIDs at index: %d", t, i)
 		}
 	}
 	return nil
@@ -46,12 +46,12 @@ func (o TeeAdvisoryIDs) Valid() error {
 		return fmt.Errorf("empty AdvisoryIDs")
 
 	}
-	for _, v := range o {
+	for i, v := range o {
 		switch t := v.(type) {
 		case string:
 			continue
 		default:
-			return fmt.Errorf("invalid type: %T for AdvisoryIDs", t)
+			return fmt.Errorf("invalid type: %T for AdvisoryIDs at index: %d", t, i)
 		}
 	}
 	return nil

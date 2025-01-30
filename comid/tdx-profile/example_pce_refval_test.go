@@ -124,14 +124,14 @@ func decodePCEMValExtensions(m *comid.Measurement) error {
 		fmt.Printf("val was not pointer to teeInstanceID")
 	}
 
-	if i.IsBytesTeeInstanceID() {
-		val, err = i.GetBytesTeeInstanceID()
+	if i.IsBytes() {
+		val, err = i.GetBytes()
 		if err != nil {
 			return fmt.Errorf("failed to decode teeinstanceid: %w", err)
 		}
 		fmt.Printf("\nInstanceID: %x", val)
-	} else if i.IsUintTeeInstanceID() {
-		val, err = i.GetUintTeeInstanceID()
+	} else if i.IsUint() {
+		val, err = i.GetUint()
 		if err != nil {
 			return fmt.Errorf("failed to decode teeinstanceid: %w", err)
 		}

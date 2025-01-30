@@ -74,8 +74,8 @@ func (o TeeISVProdID) Valid() error {
 	return nil
 }
 
-// GetUintTeeISVProdID returns a uint TeeISVProdID
-func (o TeeISVProdID) GetUintTeeISVProdID() (uint, error) {
+// GetUint returns a uint TeeISVProdID
+func (o TeeISVProdID) GetUint() (uint, error) {
 	switch t := o.val.(type) {
 	case uint64:
 		return uint(t), nil
@@ -86,8 +86,8 @@ func (o TeeISVProdID) GetUintTeeISVProdID() (uint, error) {
 	}
 }
 
-// GetBytesTeeISVProdID returns a []byte TeeISVProdID
-func (o TeeISVProdID) GetBytesTeeISVProdID() ([]byte, error) {
+// GetBytes returns a []byte TeeISVProdID
+func (o TeeISVProdID) GetBytes() ([]byte, error) {
 	switch t := o.val.(type) {
 	case []byte:
 		if len(t) == 0 {
@@ -99,8 +99,8 @@ func (o TeeISVProdID) GetBytesTeeISVProdID() ([]byte, error) {
 	}
 }
 
-// IsBytesTeeISVProdID returns true if TeeISVProdID is a byte array
-func (o TeeISVProdID) IsBytesTeeISVProdID() bool {
+// IsBytes returns true if TeeISVProdID is a byte array
+func (o TeeISVProdID) IsBytes() bool {
 	switch o.val.(type) {
 	case []byte:
 		return true
@@ -109,8 +109,8 @@ func (o TeeISVProdID) IsBytesTeeISVProdID() bool {
 	}
 }
 
-// IsBytesTeeISVProdID returns true if TeeISVProdID is a positive integer
-func (o TeeISVProdID) IsUintTeeISVProdID() bool {
+// IsUint returns true if TeeISVProdID is a positive integer
+func (o TeeISVProdID) IsUint() bool {
 	switch t := o.val.(type) {
 	case uint64, uint:
 		return true
@@ -180,10 +180,12 @@ func (o *TeeISVProdID) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalCBOR Marshals TeeISVProdID to CBOR bytes
 func (o TeeISVProdID) MarshalCBOR() ([]byte, error) {
 	return cbor.Marshal(o.val)
 }
 
+// UnmarshalCBOR UnMarshals supplied CBOR bytes to TeeISVProdID
 func (o *TeeISVProdID) UnmarshalCBOR(data []byte) error {
 	return cbor.Unmarshal(data, &o.val)
 }

@@ -38,7 +38,7 @@ func TestAdvisoryIDs_AddAdvisoryIDs_OK(t *testing.T) {
 }
 
 func TestAdvisoryIDs_AddAdvisoryIDs_NOK(t *testing.T) {
-	expectedErr := "invalid type: float64 for AdvisoryIDs"
+	expectedErr := "invalid type: float64 for AdvisoryIDs at index: 0"
 	s := make([]any, len(TestInvalidAdvisoryIDs))
 	for i := range TestInvalidAdvisoryIDs {
 		s[i] = TestInvalidAdvisoryIDs[i]
@@ -61,7 +61,7 @@ func TestAdvisoryIDs_Valid_NOK(t *testing.T) {
 	err := adv.Valid()
 	assert.EqualError(t, err, expectedErr)
 
-	expectedErr = "invalid type: float64 for AdvisoryIDs"
+	expectedErr = "invalid type: float64 for AdvisoryIDs at index: 0"
 	s := make([]any, len(TestInvalidAdvisoryIDs))
 	for i := range TestInvalidAdvisoryIDs {
 		s[i] = TestInvalidAdvisoryIDs[i]
