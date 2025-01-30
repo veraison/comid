@@ -26,12 +26,12 @@ func NewTeeTcbStatus(val []any) *TeeTcbStatus {
 }
 
 func (o *TeeTcbStatus) AddTeeTcbStatus(val []any) error {
-	for _, v := range val {
+	for i, v := range val {
 		switch t := v.(type) {
 		case string:
 			*o = append(*o, t)
 		default:
-			return fmt.Errorf("invalid type: %T for tcb status", t)
+			return fmt.Errorf("invalid type: %T for tcb status at index: %d", t, i)
 		}
 	}
 	return nil
@@ -42,12 +42,12 @@ func (o TeeTcbStatus) Valid() error {
 		return fmt.Errorf("empty tcb status")
 	}
 
-	for _, v := range o {
+	for i, v := range o {
 		switch t := v.(type) {
 		case string:
 			continue
 		default:
-			return fmt.Errorf("invalid type %T for tcb status", t)
+			return fmt.Errorf("invalid type: %T for tcb status at index: %d", t, i)
 		}
 	}
 	return nil

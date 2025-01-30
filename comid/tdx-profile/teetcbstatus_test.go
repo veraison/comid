@@ -44,7 +44,7 @@ func TestTcbStatus_AddTcbStatus_OK(t *testing.T) {
 }
 
 func TestTcbStatus_AddTcbStatus_NOK(t *testing.T) {
-	expectedErr := "invalid type: int for tcb status"
+	expectedErr := "invalid type: int for tcb status at index: 0"
 	s := make([]any, len(TestInvalidTCBStatus))
 	for i := range TestInvalidTCBStatus {
 		s[i] = TestInvalidTCBStatus[i]
@@ -66,7 +66,7 @@ func TestTcbStatus_Valid_NOK(t *testing.T) {
 	status := TeeTcbStatus{}
 	err := status.Valid()
 	assert.EqualError(t, err, expectedErr)
-	expectedErr = "invalid type int for tcb status"
+	expectedErr = "invalid type: int for tcb status at index: 0"
 	s := make([]any, len(TestInvalidTCBStatus))
 	for i := range TestInvalidTCBStatus {
 		s[i] = TestInvalidTCBStatus[i]
